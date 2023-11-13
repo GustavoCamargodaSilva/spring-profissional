@@ -8,7 +8,10 @@ public class Main {
 
 
         Employee emp = new Employee("Gustavo", 4000);
-        SalaryService sal = new SalaryService();
+        TaxService tax = new TaxService();
+        PensionService pen = new PensionService();
+
+        SalaryService sal = new SalaryService(tax,pen);//instanciando o service fazendo a injeçao de dependencia
 
         double netSalary = sal.netSalary(emp);
         System.out.println(netSalary);
