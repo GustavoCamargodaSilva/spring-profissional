@@ -3,6 +3,8 @@ package com.springprofissional.dscommerce.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity //Mapeando minha classe como entidade do meu projeto
 @Table(name = "tb_user") //Anotation permite que eu modifique o nome desta tabela user no banco de dados
@@ -16,6 +18,9 @@ public class User {
     private String phone;
     private LocalDate birthDate;
     private String password;
+
+    @OneToMany(mappedBy = "client")//Relacionamento um para muitos, mapeamento deve conter o nome do atributo do relacionamento na entidade Order
+    private List<Order> orders = new ArrayList<>(); //Como sao um para muitos é necessario uma List para guardar os retornos do banco respeitando nome descrito no diagrama
 
     public User(){
 
@@ -76,5 +81,9 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 }
