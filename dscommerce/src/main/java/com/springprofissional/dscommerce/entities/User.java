@@ -14,6 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Colocado para que o ID seja autoincrementado no banco e nao surja IDS iguais.
     private Long id;
     private String name;
+    @Column(unique = true)//Configurando que esse campo email essa coluna vai ser unica, nao vai ter email iguais proteçao a nivel de bancoo
     private String email;
     private String phone;
     private LocalDate birthDate;
