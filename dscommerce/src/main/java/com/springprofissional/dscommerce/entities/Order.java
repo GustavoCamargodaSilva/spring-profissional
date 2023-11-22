@@ -2,6 +2,8 @@ package com.springprofissional.dscommerce.entities;
 
 import jakarta.persistence.*;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity //Mapeando minha classe como entidade do meu projeto
 @Table(name = "tb_order") //Anotation permite que eu modifique o nome desta tabela user no banco de dados
@@ -22,6 +24,9 @@ public class Order {
 
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL) //Mapeado com o nome do atributo do relacionamento do outro lado
     private Payment payment; //Uma ordem tem um 0 ou 1 pagamento
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order (){
 
