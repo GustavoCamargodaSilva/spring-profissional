@@ -3,6 +3,7 @@ package com.springprofissional.dscommerce.entities;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity //Mapeando minha classe como entidade do meu projeto
@@ -79,4 +80,13 @@ public class Order {
     public void setPayment(Payment payment) {
         this.payment = payment;
     }
+
+    public Set<OrderItem> getItems() {
+        return items;
+    }
+
+    public List<Product> getProducts() {
+        return items.stream().map(x -> x.getProduct()).toList();
+    }
+
 }
