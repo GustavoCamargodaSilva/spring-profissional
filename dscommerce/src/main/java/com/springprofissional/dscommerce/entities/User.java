@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity //Mapeando minha classe como entidade do meu projeto
 @Table(name = "tb_user") //Anotation permite que eu modifique o nome desta tabela user no banco de dados
@@ -86,5 +87,18 @@ public class User {
 
     public List<Order> getOrders() {
         return orders;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User user)) return false;
+
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }

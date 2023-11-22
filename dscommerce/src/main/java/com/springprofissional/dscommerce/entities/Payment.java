@@ -3,6 +3,7 @@ package com.springprofissional.dscommerce.entities;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity //Mapeando minha classe como entidade do meu projeto
 @Table(name = "tb_payment") //Anotation permite que eu modifique o nome desta tabela user no banco de dados
@@ -50,5 +51,18 @@ public class Payment {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Payment payment)) return false;
+
+        return Objects.equals(id, payment.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }
