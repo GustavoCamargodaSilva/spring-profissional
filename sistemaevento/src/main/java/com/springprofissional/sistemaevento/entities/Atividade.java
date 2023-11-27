@@ -16,15 +16,20 @@ public class Atividade {
 
     private Double preco;
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
     public Atividade(){
 
     }
 
-    public Atividade(Integer id, String nome, String descricao, Double preco) {
+    public Atividade(Integer id, String nome, String descricao, Double preco, Categoria categoria) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
+        this.categoria = categoria;
     }
 
     public Integer getId() {
@@ -57,5 +62,13 @@ public class Atividade {
 
     public void setPreco(Double preco) {
         this.preco = preco;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }
