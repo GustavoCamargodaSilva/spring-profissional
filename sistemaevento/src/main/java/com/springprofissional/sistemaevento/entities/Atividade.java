@@ -31,6 +31,7 @@ public class Atividade {
     @OneToMany(mappedBy = "atividade")
     private List<Bloco> orders = new ArrayList<>();
 
+
     public Atividade(){
 
     }
