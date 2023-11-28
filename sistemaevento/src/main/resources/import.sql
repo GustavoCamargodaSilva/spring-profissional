@@ -11,6 +11,12 @@ INSERT INTO tb_participante(id,nome,email) VALUES (4,'Teresa Silva','teresa@gmai
 
 //------Participante--------//
 
+INSERT INTO tb_atividade(id,nome,descricao,preco,categoria_id) VALUES (1,'CURSO DE HTML','APRENDA HTML DE FORMA PRATICA',80,1);
+INSERT INTO tb_atividade(id,nome,descricao,preco,categoria_id) VALUES (2,'OFICINA DE GIT HUB','CONTROLE DE VERSOES DE SEUS PROJETOS',50,2);
+INSERT INTO tb_atividade(id,nome,descricao,preco,categoria_id) VALUES (3,'ATIVIDADE COMPLEMENTAR DE JAVA','REFORÇO DE ALGORITMOS',30,3);
+
+
+INSERT INTO tb_bloco(id,inicio,fim,atividade_id) VALUES (1,TIMESTAMP WITH TIME ZONE '2017-09-25T08:00:00-3',TIMESTAMP WITH TIME ZONE '2017-09-25T11:00:00-3',1);
 
 
 
