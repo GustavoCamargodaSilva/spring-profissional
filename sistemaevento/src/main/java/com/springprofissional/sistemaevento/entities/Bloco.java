@@ -3,6 +3,7 @@ package com.springprofissional.sistemaevento.entities;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_bloco")
@@ -55,5 +56,18 @@ public class Bloco {
 
     public void setFim(Instant fim) {
         this.fim = fim;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Bloco bloco)) return false;
+
+        return Objects.equals(id, bloco.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }
