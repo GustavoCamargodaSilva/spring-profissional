@@ -7,10 +7,7 @@ import com.springprofissional.dscommerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
 import java.util.List;
@@ -32,4 +29,14 @@ public class ProductController {
     public Page<ProductDTO> findAll(Pageable pageable){ //Pageable quer dizer que ele vai me retornar os resultados paginados
         return service.findAll(pageable);
     }
+    @PostMapping //metodo para criar um produto
+    public ProductDTO insert(@RequestBody ProductDTO dto){ //RequestBody faz com que o corpo correspondente do json corresponda e instancie um dto quando chamado o metodo
+       return service.insert(dto);
+    }
+
+
+
+
+
+
 }

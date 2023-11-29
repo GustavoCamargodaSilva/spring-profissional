@@ -9,9 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class ProductService {
 
@@ -36,5 +33,19 @@ public class ProductService {
 
         Page<Product> result = repository.findAll(pageable); //tipo page que recebe listado
         return result.map(x -> new ProductDTO(x));
+    }
+
+    @Transactional
+    public ProductDTO insert(ProductDTO dto){  //Insert no banco de produto dto
+
+        Product entity = new Product(); //cria um novo produto
+        entity.setName(dto.getName()); //faz o set do obj dto que recebe na requisicao no produto
+        entity.setDescription(dto.getDescription());
+        entity.setPrice(dto.getPrice());
+        entity.setImgUrl(dto.getImgUrl());
+
+        entity = repository.save(entity); //usa o repositorio para salvar o novo produto
+
+        return new ProductDTO(entity);  //converte para retornar um dto no metodo
     }
 }
