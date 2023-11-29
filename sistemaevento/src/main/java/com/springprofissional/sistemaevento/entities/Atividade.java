@@ -23,13 +23,14 @@ public class Atividade {
     private Categoria categoria;
 
     @ManyToMany
-    @JoinTable(name = "tb_participante_id",
-                        joinColumns = @JoinColumn(name = "atividade_id"),
-                        inverseJoinColumns = @JoinColumn(name = "participante_id"))
-    private Set<Participante> participantes = new HashSet<>();
+    @JoinTable(
+            name = "tb_atividade_participantes",
+            joinColumns = @JoinColumn(name = "atividade_id"),
+            inverseJoinColumns = @JoinColumn(name = "participante_id"))
+    private Set<Participante> participantes;
 
     @OneToMany(mappedBy = "atividade")
-    private List<Bloco> orders = new ArrayList<>();
+    private List<Bloco> blocos = new ArrayList<>();
 
 
     public Atividade(){
