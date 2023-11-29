@@ -5,12 +5,15 @@ import com.springprofissional.dscommerce.entities.Product;
 import com.springprofissional.dscommerce.repositories.ProductRepository;
 import com.springprofissional.dscommerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 @RestController  //Configurar para que quando a aplicaçao rodar o que implementar na classe seja respodindo pela web
@@ -23,5 +26,10 @@ public class ProductController {
     public ProductDTO findById(@PathVariable Long id){
         ProductDTO dto = service.findById(id);
         return dto;
+    }
+
+    @GetMapping //get de todos os produtos da lista paginados
+    public Page<ProductDTO> findAll(Pageable pageable){ //Pageable quer dizer que ele vai me retornar os resultados paginados
+        return service.findAll(pageable);
     }
 }
