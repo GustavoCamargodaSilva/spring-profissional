@@ -17,6 +17,12 @@ INSERT INTO tb_atividade(id,nome,descricao,preco,categoria_id) VALUES (3,'ATIVID
 
 
 INSERT INTO tb_bloco(id,inicio,fim,atividade_id) VALUES (1,TIMESTAMP WITH TIME ZONE '2017-09-25T08:00:00-3',TIMESTAMP WITH TIME ZONE '2017-09-25T11:00:00-3',1);
+INSERT INTO tb_bloco(id,inicio,fim,atividade_id) VALUES (2,TIMESTAMP WITH TIME ZONE '2017-09-25T14:00:00-3',TIMESTAMP WITH TIME ZONE '2017-09-25T18:00:00-3',2);
+INSERT INTO tb_bloco(id,inicio,fim,atividade_id) VALUES (3,TIMESTAMP WITH TIME ZONE '2017-09-26T08:00:00-3',TIMESTAMP WITH TIME ZONE '2017-09-26T11:00:00-3',3);
+
+INSERT INTO tb_participante_id(atividade_id,participante_id) VALUES (1,1);
+INSERT INTO tb_participante_id(atividade_id,participante_id) VALUES (2,2);
+INSERT INTO tb_participante_id(atividade_id,participante_id) VALUES (3,3);
 
 
 
