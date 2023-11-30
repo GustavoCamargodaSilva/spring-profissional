@@ -41,7 +41,11 @@ public class ProductController {
        return ResponseEntity.created(uri).body(dto);
     }
 
-
+    @PutMapping(value = "/{id}") //esse id vai casar com o parametro do metodo
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id,@RequestBody ProductDTO dto){ //retornar um reponseentity do tipo dto
+        dto = service.update(id,dto);
+        return ResponseEntity.ok(dto); //pontoOK vai retornar o codigo 201 que é o correto
+    }
 
 
 
