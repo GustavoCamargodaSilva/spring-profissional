@@ -47,7 +47,10 @@ public class ProductController {
         return ResponseEntity.ok(dto); //pontoOK vai retornar o codigo 201 que é o correto
     }
 
-
-
+    @DeleteMapping(value = "/{id}") //esse id vai casar com o parametro do metodo
+    public ResponseEntity<Void> delete(@PathVariable Long id){ //retornar um reponseentity do tipo dto
+        service.delete(id);
+        return ResponseEntity.noContent().build(); //pontoOK vai retornar o codigo 201 que é o correto
+    }
 
 }

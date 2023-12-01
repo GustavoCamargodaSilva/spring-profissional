@@ -53,10 +53,16 @@ public class ProductService {
         return new ProductDTO(entity);  //converte para retornar um dto no metodo
     }
 
+    @Transactional
     private void CopyDtoToEntity(ProductDTO dto, Product entity){
         entity.setName(dto.getName()); //faz o set do obj dto que recebe na requisicao no produto
         entity.setDescription(dto.getDescription());
         entity.setPrice(dto.getPrice());
         entity.setImgUrl(dto.getImgUrl());
+    }
+
+    @Transactional
+    public void delete(Long id){   //Nao retorna nada
+        repository.deleteById(id);
     }
 }
