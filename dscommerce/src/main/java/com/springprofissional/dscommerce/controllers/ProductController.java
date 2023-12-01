@@ -4,6 +4,7 @@ import com.springprofissional.dscommerce.dto.ProductDTO;
 import com.springprofissional.dscommerce.entities.Product;
 import com.springprofissional.dscommerce.repositories.ProductRepository;
 import com.springprofissional.dscommerce.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,8 +34,8 @@ public class ProductController {
         Page<ProductDTO> dto = service.findAll(pageable);
         return ResponseEntity.ok(dto);
     }
-    @PostMapping //metodo para criar um produto
-    public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO dto){ //RequestBody faz com que o corpo correspondente do json corresponda e instancie um dto quando chamado o metodo
+    @PostMapping //metodo para criar um produto   //valid para passar pela validaçao antes de dar insert
+    public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO dto){ //RequestBody faz com que o corpo correspondente do json corresponda e instancie um dto quando chamado o metodo
        dto = service.insert(dto);
        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                .buildAndExpand(dto.getId()).toUri();
@@ -42,7 +43,7 @@ public class ProductController {
     }
 
     @PutMapping(value = "/{id}") //esse id vai casar com o parametro do metodo
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id,@RequestBody ProductDTO dto){ //retornar um reponseentity do tipo dto
+    public ResponseEntity<ProductDTO> update(@Valid @PathVariable Long id,@RequestBody ProductDTO dto){ //retornar um reponseentity do tipo dto
 
         dto = service.update(id,dto);
         return ResponseEntity.ok(dto); //pontoOK vai retornar o codigo 201 que é o correto
