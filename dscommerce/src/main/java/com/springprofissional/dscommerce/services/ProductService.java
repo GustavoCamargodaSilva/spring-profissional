@@ -3,11 +3,15 @@ package com.springprofissional.dscommerce.services;
 import com.springprofissional.dscommerce.dto.ProductDTO;
 import com.springprofissional.dscommerce.entities.Product;
 import com.springprofissional.dscommerce.repositories.ProductRepository;
+import com.springprofissional.dscommerce.services.exceptions.DatabaseException;
 import com.springprofissional.dscommerce.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -50,10 +54,14 @@ public class ProductService {
     @Transactional
     public ProductDTO update(Long id,ProductDTO dto){  //Insert no banco de produto dto
 
-        Product entity = repository.getReferenceById(id); //referenciar produto com o id nao faz busca no banco ainda sendo monitorado pela JPA
-        CopyDtoToEntity(dto,entity);
-        entity = repository.save(entity); //usa o repositorio para salvar o novo produto
-        return new ProductDTO(entity);  //converte para retornar um dto no metodo
+        try{
+            Product entity = repository.getReferenceById(id); //referenciar produto com o id nao faz busca no banco ainda sendo monitorado pela JPA
+            CopyDtoToEntity(dto,entity);
+            entity = repository.save(entity); //usa o repositorio para salvar o novo produto
+            return new ProductDTO(entity);  //converte para retornar um dto no metodo
+        }catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException("Recurso nao encontrado");
+        }
     }
 
     @Transactional
@@ -64,8 +72,16 @@ public class ProductService {
         entity.setImgUrl(dto.getImgUrl());
     }
 
-    @Transactional
+    @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id){   //Nao retorna nada
-        repository.deleteById(id);
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
+        try {
+            repository.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Falha de integridade referencial");
+        }
     }
 }
