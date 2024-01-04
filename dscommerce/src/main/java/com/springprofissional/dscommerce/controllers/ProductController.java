@@ -30,8 +30,10 @@ public class ProductController {
     }
 
     @GetMapping //get de todos os produtos da lista paginados
-    public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable){ //Pageable quer dizer que ele vai me retornar os resultados paginados
-        Page<ProductDTO> dto = service.findAll(pageable);
+    public ResponseEntity<Page<ProductDTO>> findAll(
+            @RequestParam(name = "name",defaultValue = "") String name,
+            Pageable pageable){ //Pageable quer dizer que ele vai me retornar os resultados paginados
+        Page<ProductDTO> dto = service.findAll(name,pageable);
         return ResponseEntity.ok(dto);
     }
     @PostMapping //metodo para criar um produto   //valid para passar pela validaçao antes de dar insert

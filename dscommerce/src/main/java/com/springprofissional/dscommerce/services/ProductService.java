@@ -20,7 +20,7 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
-    @Transactional(readOnly = true) //somente de leitura
+      //somente de leitura
     public ProductDTO findById(Long id){
 
 
@@ -35,10 +35,10 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true) //retorna lista paginada de produtos
-    public Page<ProductDTO> findAll(Pageable pageable){  //tambem precisa passar o pageable
+    public Page<ProductDTO> findAll(String name, Pageable pageable){  //tambem precisa passar o pageable
 
-
-        Page<Product> result = repository.findAll(pageable); //tipo page que recebe listado
+        
+        Page<Product> result = repository.searchByName(name,pageable); //tipo page que recebe listado
         return result.map(x -> new ProductDTO(x));
     }
 
