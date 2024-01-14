@@ -71,10 +71,10 @@ public class AuthorizationServerConfig {
 	@Order(2)
 	public SecurityFilterChain asSecurityFilterChain(HttpSecurity http) throws Exception {
 
-		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http); //config para funcionar junto com o spring security
 
 		// @formatter:off
-		http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
+		http.getConfigurer(OAuth2AuthorizationServerConfigurer.class) //config customizaçao de token e autenticaçao
 			.tokenEndpoint(tokenEndpoint -> tokenEndpoint
 				.accessTokenRequestConverter(new CustomPasswordAuthenticationConverter())
 				.authenticationProvider(new CustomPasswordAuthenticationProvider(authorizationService(), tokenGenerator(), userDetailsService, passwordEncoder())));

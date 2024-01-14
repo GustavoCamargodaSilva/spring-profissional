@@ -28,6 +28,7 @@ import org.springframework.web.filter.CorsFilter;
 public class ResourceServerConfig {
 
 	@Value("${cors.origins}")
+
 	private String corsOrigins;
 
 	@Bean
@@ -45,7 +46,7 @@ public class ResourceServerConfig {
 	public SecurityFilterChain rsSecurityFilterChain(HttpSecurity http) throws Exception {
 
 		http.csrf(csrf -> csrf.disable());
-		http.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll());
+		http.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll()); //restringir para tudo autenticado
 		http.oauth2ResourceServer(oauth2ResourceServer -> oauth2ResourceServer.jwt(Customizer.withDefaults()));
 		http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 		return http.build();
