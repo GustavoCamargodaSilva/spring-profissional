@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -36,6 +37,8 @@ public class ProductController {
         Page<ProductDTO> dto = service.findAll(name,pageable);
         return ResponseEntity.ok(dto);
     }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping //metodo para criar um produto   //valid para passar pela validaçao antes de dar insert
     public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO dto){ //RequestBody faz com que o corpo correspondente do json corresponda e instancie um dto quando chamado o metodo
        dto = service.insert(dto);
@@ -44,6 +47,7 @@ public class ProductController {
        return ResponseEntity.created(uri).body(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}") //esse id vai casar com o parametro do metodo
     public ResponseEntity<ProductDTO> update(@Valid @PathVariable Long id,@RequestBody ProductDTO dto){ //retornar um reponseentity do tipo dto
 
@@ -51,6 +55,7 @@ public class ProductController {
         return ResponseEntity.ok(dto); //pontoOK vai retornar o codigo 201 que é o correto
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{id}") //esse id vai casar com o parametro do metodo
     public ResponseEntity<Void> delete(@PathVariable Long id){ //retornar um reponseentity do tipo dto
         service.delete(id);
