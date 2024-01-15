@@ -1,6 +1,7 @@
 package com.springprofissional.dscommerce.controllers;
 
 import com.springprofissional.dscommerce.dto.ProductDTO;
+import com.springprofissional.dscommerce.dto.ProductMinDTO;
 import com.springprofissional.dscommerce.entities.Product;
 import com.springprofissional.dscommerce.repositories.ProductRepository;
 import com.springprofissional.dscommerce.services.ProductService;
@@ -31,10 +32,10 @@ public class ProductController {
     }
 
     @GetMapping //get de todos os produtos da lista paginados
-    public ResponseEntity<Page<ProductDTO>> findAll(
+    public ResponseEntity<Page<ProductMinDTO>> findAll(
             @RequestParam(name = "name",defaultValue = "") String name,
             Pageable pageable){ //Pageable quer dizer que ele vai me retornar os resultados paginados
-        Page<ProductDTO> dto = service.findAll(name,pageable);
+        Page<ProductMinDTO> dto = service.findAll(name,pageable);
         return ResponseEntity.ok(dto);
     }
 

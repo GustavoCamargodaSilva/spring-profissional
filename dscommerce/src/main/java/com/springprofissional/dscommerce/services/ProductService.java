@@ -1,6 +1,7 @@
 package com.springprofissional.dscommerce.services;
 
 import com.springprofissional.dscommerce.dto.ProductDTO;
+import com.springprofissional.dscommerce.dto.ProductMinDTO;
 import com.springprofissional.dscommerce.entities.Product;
 import com.springprofissional.dscommerce.repositories.ProductRepository;
 import com.springprofissional.dscommerce.services.exceptions.DatabaseException;
@@ -35,11 +36,9 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true) //retorna lista paginada de produtos
-    public Page<ProductDTO> findAll(String name, Pageable pageable){  //tambem precisa passar o pageable
-
-        
+    public Page<ProductMinDTO> findAll(String name, Pageable pageable){  //tambem precisa passar o pageable
         Page<Product> result = repository.searchByName(name,pageable); //tipo page que recebe listado
-        return result.map(x -> new ProductDTO(x));
+        return result.map(x -> new ProductMinDTO(x));
     }
 
     @Transactional
