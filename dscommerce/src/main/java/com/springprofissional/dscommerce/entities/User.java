@@ -1,13 +1,15 @@
 package com.springprofissional.dscommerce.entities;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.util.*;
 
 @Entity //Mapeando minha classe como entidade do meu projeto
 @Table(name = "tb_user") //Anotation permite que eu modifique o nome desta tabela user no banco de dados
-public class User {
+public class User implements UserDetails {
 
     @Id //Anotation indicando que o atributo abaixo é uma chave primaria da minha entidade
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Colocado para que o ID seja autoincrementado no banco e nao surja IDS iguais.
@@ -81,8 +83,38 @@ public class User {
         this.birthDate = birthDate;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
