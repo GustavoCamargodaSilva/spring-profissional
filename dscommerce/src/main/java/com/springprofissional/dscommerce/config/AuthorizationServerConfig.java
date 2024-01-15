@@ -8,6 +8,9 @@ import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
 
+import com.springprofissional.dscommerce.config.customgrant.CustomPasswordAuthenticationConverter;
+import com.springprofissional.dscommerce.config.customgrant.CustomPasswordAuthenticationProvider;
+import com.springprofissional.dscommerce.config.customgrant.CustomUserAuthorities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
