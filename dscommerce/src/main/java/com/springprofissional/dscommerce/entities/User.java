@@ -3,9 +3,7 @@ package com.springprofissional.dscommerce.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity //Mapeando minha classe como entidade do meu projeto
 @Table(name = "tb_user") //Anotation permite que eu modifique o nome desta tabela user no banco de dados
@@ -23,6 +21,12 @@ public class User {
 
     @OneToMany(mappedBy = "client")//Relacionamento um para muitos, mapeamento deve conter o nome do atributo do relacionamento na entidade Order
     private List<Order> orders = new ArrayList<>(); //Como sao um para muitos é necessario uma List para guardar os retornos do banco respeitando nome descrito no diagrama
+
+    @ManyToMany
+    @JoinTable(name = "tb_user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     public User(){
 
@@ -100,5 +104,22 @@ public class User {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void addRole(Role role){
+        roles.add(role);
+    }
+
+    public boolean hasRole(String roleName) {
+        for (Role role : roles) {
+            if (role.getAuthority().equals(roleName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
