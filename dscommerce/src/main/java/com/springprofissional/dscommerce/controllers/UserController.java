@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN'),('ROLE_OPERATOR')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
     @GetMapping(value = "/profile") //esse id vai casar com o parametro do metodo
     public ResponseEntity<UserDTO> findProfile(){ //retornar um reponseentity do tipo dto
         UserDTO dto = service.getMe();

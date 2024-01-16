@@ -6,20 +6,19 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity //Mapeando minha classe como entidade do meu projeto
-@Table(name = "tb_category") //Anotation permite que eu modifique o nome desta tabela user no banco de dados
+@Entity
+@Table(name = "tb_category")
 public class Category {
 
-    @Id //Anotation indicando que o atributo abaixo é uma chave primaria da minha entidade
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //Colocado para que o ID seja autoincrementado no banco e nao surja IDS iguais.
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
-    @ManyToMany(mappedBy = "categories") //Mapeado usando o nome do atributo em product
+    @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
 
-    public Category(){
-
+    public Category() {
     }
 
     public Category(Long id, String name) {
@@ -50,7 +49,9 @@ public class Category {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Category category)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Category category = (Category) o;
 
         return Objects.equals(id, category.id);
     }

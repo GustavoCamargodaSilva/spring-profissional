@@ -1,7 +1,9 @@
 package com.springprofissional.dscommerce.services;
 
+import com.springprofissional.dscommerce.dto.CategoryDTO;
 import com.springprofissional.dscommerce.dto.ProductDTO;
 import com.springprofissional.dscommerce.dto.ProductMinDTO;
+import com.springprofissional.dscommerce.entities.Category;
 import com.springprofissional.dscommerce.entities.Product;
 import com.springprofissional.dscommerce.repositories.ProductRepository;
 import com.springprofissional.dscommerce.services.exceptions.DatabaseException;
@@ -23,8 +25,6 @@ public class ProductService {
 
       //somente de leitura
     public ProductDTO findById(Long id){
-
-
         Product product = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Recurso nao encontrado"));
         return new ProductDTO(product);
 
@@ -69,6 +69,13 @@ public class ProductService {
         entity.setDescription(dto.getDescription());
         entity.setPrice(dto.getPrice());
         entity.setImgUrl(dto.getImgUrl());
+
+        entity.getCategories().clear();
+        for(CategoryDTO catDTO : dto.getCategories()){
+            Category cat = new Category();
+            cat.setId(catDTO.getId());
+            entity.getCategories().add(cat);
+        }
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)

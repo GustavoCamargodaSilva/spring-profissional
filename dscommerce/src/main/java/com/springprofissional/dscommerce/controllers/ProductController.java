@@ -25,6 +25,7 @@ public class ProductController {
 
     @Autowired
     private ProductService service;
+
     @GetMapping(value = "/{id}") //esse id vai casar com o parametro do metodo
     public ResponseEntity<ProductDTO> findById(@PathVariable Long id){ //retornar um reponseentity do tipo dto
         ProductDTO dto = service.findById(id);
@@ -39,7 +40,7 @@ public class ProductController {
         return ResponseEntity.ok(dto);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping //metodo para criar um produto   //valid para passar pela validaçao antes de dar insert
     public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO dto){ //RequestBody faz com que o corpo correspondente do json corresponda e instancie um dto quando chamado o metodo
        dto = service.insert(dto);
@@ -48,7 +49,7 @@ public class ProductController {
        return ResponseEntity.created(uri).body(dto);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}") //esse id vai casar com o parametro do metodo
     public ResponseEntity<ProductDTO> update(@Valid @PathVariable Long id,@RequestBody ProductDTO dto){ //retornar um reponseentity do tipo dto
 
@@ -56,7 +57,7 @@ public class ProductController {
         return ResponseEntity.ok(dto); //pontoOK vai retornar o codigo 201 que é o correto
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{id}") //esse id vai casar com o parametro do metodo
     public ResponseEntity<Void> delete(@PathVariable Long id){ //retornar um reponseentity do tipo dto
         service.delete(id);

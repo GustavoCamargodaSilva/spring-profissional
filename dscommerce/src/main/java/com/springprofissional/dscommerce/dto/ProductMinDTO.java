@@ -8,7 +8,6 @@ import jakarta.validation.constraints.Size;
 public class ProductMinDTO {
 
     private Long id;
-
     private String name;
     private Double price;
     private String imgUrl;
@@ -27,7 +26,7 @@ public class ProductMinDTO {
         imgUrl = entity.getImgUrl();
     }
 
-    public Long getId() {     //CLASSE DTO NAO É NECESSARIO COLOCAR O SET PORQUE SO RECUPERA OS DADOS
+    public Long getId() {
         return id;
     }
 

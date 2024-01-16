@@ -7,30 +7,30 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity //Mapeando minha classe como entidade do meu projeto
-@Table(name = "tb_product") //Anotation permite que eu modifique o nome desta tabela user no banco de dados
+@Entity
+@Table(name = "tb_product")
 public class Product {
 
-    @Id //Anotation indicando que o atributo abaixo é uma chave primaria da minha entidade
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //Colocado para que o ID seja autoincrementado no banco e nao surja IDS iguais.
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(columnDefinition = "TEXT")//Colocando que essa descricao vai ser um texto e nao um var char de 255 comum
+
+    @Column(columnDefinition = "TEXT")
     private String description;
     private Double price;
     private String imgUrl;
 
-    @ManyToMany //Muitos para muitos
-    @JoinTable(name = "tb_product_category", //Tabela de junçao
-            joinColumns = @JoinColumn(name = "product_id"), //Referencia para as duas chaves estrangeiras
+    @ManyToMany
+    @JoinTable(name = "tb_product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories = new HashSet<>(); //Set pois os IDS nao podem se repetir o par produto e categoria ID
+    private Set<Category> categories = new HashSet<>();
 
     @OneToMany(mappedBy = "id.product")
-    private Set<OrderItem>items = new HashSet<>();
+    private Set<OrderItem> items = new HashSet<>();
 
-    public Product(){
-
+    public Product() {
     }
 
     public Product(Long id, String name, String description, Double price, String imgUrl) {
@@ -96,7 +96,9 @@ public class Product {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Product product)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
 
         return Objects.equals(id, product.id);
     }
