@@ -2,10 +2,7 @@ package com.springprofissional.dscommerce.dto;
 
 import com.springprofissional.dscommerce.entities.Category;
 import com.springprofissional.dscommerce.entities.Product;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.util.ArrayList;
