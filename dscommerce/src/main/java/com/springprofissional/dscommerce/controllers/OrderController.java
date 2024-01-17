@@ -3,6 +3,7 @@ package com.springprofissional.dscommerce.controllers;
 import com.springprofissional.dscommerce.dto.OrderDTO;
 import com.springprofissional.dscommerce.dto.ProductDTO;
 import com.springprofissional.dscommerce.dto.ProductMinDTO;
+import com.springprofissional.dscommerce.entities.Order;
 import com.springprofissional.dscommerce.services.OrderService;
 import com.springprofissional.dscommerce.services.ProductService;
 import jakarta.validation.Valid;
@@ -28,6 +29,15 @@ public class OrderController {
     public ResponseEntity<OrderDTO> findById(@PathVariable Long id){ //retornar um reponseentity do tipo dto
         OrderDTO dto = service.findById(id);
         return ResponseEntity.ok(dto); //pontoOK vai retornar o codigo 201 que é o correto
+    }
+
+    @PreAuthorize("hasRole('ROLE_CLIENT')")
+    @PostMapping
+    public ResponseEntity<OrderDTO> insert(@Valid @RequestBody OrderDTO dto){
+        dto = service.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
     }
 
 }
