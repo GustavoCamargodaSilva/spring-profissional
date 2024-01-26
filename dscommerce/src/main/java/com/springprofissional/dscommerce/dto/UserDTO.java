@@ -25,8 +25,10 @@ public class UserDTO {
         this.birthDate = birthDate;
     }
 
-
     
+
+
+
 
     public UserDTO(User entity) {
         id = entity.getId();
