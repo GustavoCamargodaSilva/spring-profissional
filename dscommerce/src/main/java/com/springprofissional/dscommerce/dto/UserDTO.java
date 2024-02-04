@@ -25,7 +25,7 @@ public class UserDTO {
         this.birthDate = birthDate;
     }
 
-    
+
 
 
 
